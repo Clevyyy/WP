@@ -68,5 +68,9 @@ def update_all(frame):
 
 ani = FuncAnimation(fig, update_all, frames=frames, interval=50, blit=False)
 
+########### Pour sauvegarder le GIF, Dé-commentez !###########
+# Pour enregistrer le GIF sous forme de GIF, il vous suffit d'enlever le "#" devant la ligne ci-dessous
+# ani.save(f'bielle_manivelle_{len(phases)}_cylindres.gif', writer=PillowWriter(fps=20))
+
 plt.tight_layout()
 plt.show()
