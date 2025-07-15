@@ -15,7 +15,6 @@ gs = fig.add_gridspec(3, 2, height_ratios=[1, 1, 1])
 
 # Axe 3D
 ax3d = fig.add_subplot(gs[:, 0], projection='3d')
-ax3d.set_xlim(-1, 4)
 ax3d.set_ylim(-3, 3)
 ax3d.set_zlim(-1, 4)
 ax3d.set_xlabel("X")
@@ -28,12 +27,13 @@ ax_pos = fig.add_subplot(gs[0, 1])
 ax_vit = fig.add_subplot(gs[1, 1])
 ax_acc = fig.add_subplot(gs[2, 1])
 
-# Phases des pistons
-phases = [0, np.pi, np.pi, 0]
+# Création de 4 pistons avec phases décalées
+phases = [0, np.pi, np.pi, 0, np.pi/2, 0]
 pistons = []
-x_positions = [0, 1, 2, 3]
+x_positions = [i for i in range(len(phases))]
+ax3d.set_xlim(-1, len(phases))
 
-for i in range(4):
+for i in range(len(phases)):
     piston = Piston(R, L, dt, frames, phases[i], ax3d, ax_pos, ax_vit, ax_acc, x_pos=x_positions[i])
     piston.calc_dynamics()
     pistons.append(piston)
