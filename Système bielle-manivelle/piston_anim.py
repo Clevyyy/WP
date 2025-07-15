@@ -53,6 +53,17 @@ class Piston:
         ax_vit.set_ylabel("Vitesse")
         ax_acc.set_ylabel("Accélération")
         ax_acc.set_xlabel("Angle (°)")
+
+        ax_pos.set_xlim(-360, 360)
+        ax_pos.set_xticks(np.arange(-360, 361, 90))
+        ax_pos.set_xticklabels([f"{t}°" for t in range(-360, 361, 90)])
+        ax_vit.set_xlim(-360, 360)
+        ax_vit.set_xticks(np.arange(-360, 361, 90))
+        ax_vit.set_xticklabels([f"{t}°" for t in range(-360, 361, 90)])
+        ax_acc.set_xlim(-360, 360)
+        ax_acc.set_xticks(np.arange(-360, 361, 90))
+        ax_acc.set_xticklabels([f"{t}°" for t in range(-360, 361, 90)])
+
         
     def pos_piston(self, th):
         x_m = self.R * np.cos(th + self.phase + np.pi/2)
@@ -109,29 +120,29 @@ class Piston:
             self.cyl_bielle.remove()
         if self.cyl_manivelle:
             self.cyl_manivelle.remove()
-    
+
         z = self.position[frame]
         x = self.x_pos
         r_piston = 0.1
         h_piston = 1
-    
+
         # piston vertical
         self.cyl_piston = self.plot_cylinder(self.ax3d, x, 0, z - 1, h_piston, r_piston, color='blue')
-    
+
         # manivelle tournant dans le plan Y-Z
         angle = self.theta[frame] + self.phase
         r_orbit = self.R
         angle_offset = 0  # tu peux paramétrer ça aussi si besoin
-    
+
         base = [x,
                 r_orbit * np.sin(angle + angle_offset),
                 r_orbit * np.cos(angle + angle_offset)]
-    
+
         top = [x, 0, z - 1]
-    
+
         # tracé bielle simple en 3D par une ligne (entre base et top)
         self.cyl_bielle = self.ax3d.plot([base[0], top[0]], [base[1], top[1]], [base[2], top[2]], color='green', linewidth=3)[0]
-    
+
         # manivelle (point sur orbite)
         self.cyl_manivelle = self.ax3d.plot([base[0]], [base[1]], [base[2]], marker='o', color='red')[0]
     
